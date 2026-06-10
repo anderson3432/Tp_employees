@@ -64,18 +64,51 @@
         }
 
 
-        function get_all_departement(){
-            $sql = 'select * FROM departments';
-            // echo $sql;
-            $new_req = mysqli_query(dbconnect(),$sql);
-            $result = array();        
-            while ($news = mysqli_fetch_assoc($new_req)) {
-                $result[] = $news;
-            }
-            mysqli_free_result($new_req);
-            return $result;
+        // function get_all_departement(){
+        //     $sql = 'select * FROM departments';
+        //     // echo $sql;
+        //     $new_req = mysqli_query(dbconnect(),$sql);
+        //     $result = array();        
+        //     while ($news = mysqli_fetch_assoc($new_req)) {
+        //         $result[] = $news;
+        //     }
+        //     mysqli_free_result($new_req);
+        //     return $result;
 
-        }
+        // }
+    function get_all_departement(){
+    $sql = "SELECT d.dept_no, d.dept_name, e.first_name, e.last_name
+            FROM departments d
+            JOIN dept_manager dm ON d.dept_no = dm.dept_no
+            JOIN employees e ON dm.emp_no = e.emp_no
+            WHERE dm.to_date = '9999-01-01'
+            ORDER BY d.dept_name";
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $result = array();
+    while ($news = mysqli_fetch_assoc($new_req)) {
+        $result[] = $news;
+    }
+    mysqli_free_result($new_req);
+    return $result;
+    }
+    function get_employes_by_departement($dept_no){
+    $sql = "SELECT e.emp_no, e.first_name, e.last_name, e.hire_date, t.title
+            FROM employees e
+            JOIN dept_emp de ON e.emp_no = de.emp_no
+            JOIN titles t ON e.emp_no = t.emp_no
+            WHERE de.dept_no = '%s'
+            AND de.to_date = '9999-01-01'
+            AND t.to_date = '9999-01-01'
+            ORDER BY e.last_name";
+    $sql = sprintf($sql, $dept_no);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $employes = array();
+    while ($row = mysqli_fetch_assoc($new_req)) {
+        $employes[] = $row;
+    }
+    mysqli_free_result($new_req);
+    return $employes;
+    }
 
 
 ?>

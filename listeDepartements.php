@@ -12,17 +12,23 @@ $news = get_all_departement();
     <title>Document</title>
 </head>
 <body>
-      <table border="1">
+    <table border="1">
         <tr>
             <th>dept_no</th>
             <th>dept_name</th>
+            <th>Manager</th>
         </tr>
-        <?php foreach($news as $donnees) {?>
-            <tr>    
-                <td><?php echo $donnees["dept_no"]; ?></td>
-                <td><?php echo $donnees["dept_name"]; ?></td>
-            </tr>
-        <?php }?>
+        <?php foreach($news as $donnees) { ?>
+        <tr>
+            <td><?php echo $donnees["dept_no"]; ?></td>
+            <td>
+                <a href="employes.php?dept_no=<?php echo $donnees["dept_no"]; ?>">
+                    <?php echo $donnees["dept_name"]; ?>
+                </a>
+            </td>
+            <td><?php echo $donnees["first_name"]; ?> <?php echo $donnees["last_name"]; ?></td>
+        </tr>
+        <?php } ?>
     </table>
 </body>
 </html>
