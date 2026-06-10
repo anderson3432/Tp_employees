@@ -32,7 +32,10 @@ $employes = get_employes_by_departement($dept_no);
             <?php foreach($employes as $emp) { ?>
             <tr>
                 <td><?php echo $emp["emp_no"]; ?></td>
-                <td><?php echo $emp["first_name"]; ?></td>
+                <td>
+                    <a href="ficheEmployer.php?num=<?php echo $emp["emp_no"]; ?>">
+                        <?php echo $emp["first_name"]; ?>
+                    </a>
                 <td><?php echo $emp["last_name"]; ?></td>
                 <td><?php echo $emp["title"]; ?></td>
                 <td><?php echo $emp["hire_date"]; ?></td>

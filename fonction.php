@@ -65,6 +65,32 @@ function get_employes_by_departement($dept_no)
     return $employes;
 }
 
+
+    function get_formulaire_employeer($num){
+        $sql = "SELECT * FROM employees e 
+                WHERE e.emp_no = '%s'";
+        $sql = sprintf($sql, $num);
+        $new_req = mysqli_query(dbconnect(), $sql);
+        $employes = array();
+        while ($row = mysqli_fetch_assoc($new_req)) {
+            $employes[] = $row;
+        }
+        mysqli_free_result($new_req);
+        return $employes;
+    }
+    function get_historique_salaire($num){
+        $sql = "SELECT * FROM salaries s 
+                WHERE s.emp_no = '%s'";
+        $sql = sprintf($sql, $num);
+        $new_req = mysqli_query(dbconnect(), $sql);
+        $employes = array();
+        while ($row = mysqli_fetch_assoc($new_req)) {
+            $employes[] = $row;
+        }
+        mysqli_free_result($new_req);
+        return $employes;
+    }
+
 function recherche_employes($department, $nom, $age_min, $age_max)
 {
     $sql = "SELECT departments.dept_name, employees.first_name, employees.last_name,
