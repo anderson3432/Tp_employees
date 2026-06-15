@@ -25,6 +25,10 @@ $news = get_all_departement();
                 <label class="form-label">Nom employé</label>
                 <input type="text" name="nom" class="form-control" placeholder="Nom...">
             </div>
+            <div class="col-md-3">
+                <label class="form-label">Prenom employé</label>
+                <input type="text" name="prenom" class="form-control" placeholder="Prenom...">
+            </div>
             <div class="col-md-2">
                 <label class="form-label">Age min</label>
                 <input type="number" name="age_min" class="form-control" placeholder="Min...">

@@ -3,6 +3,7 @@ include('fonction.php');
 $recherche = recherche_employes(
     $_GET["department"],
     $_GET["nom"],
+    $_GET["prenom"],
     $_GET["age_min"],
     $_GET["age_max"]
 );
@@ -28,6 +29,7 @@ $recherche = recherche_employes(
                 <tr>
                     <th>Département</th>
                     <th>Nom</th>
+                    <th>Prénom</th>
                     <th>Age</th>
                 </tr>
             </thead>
@@ -41,6 +43,7 @@ $recherche = recherche_employes(
                         <tr>
                             <td><?php echo $employe["dept_name"]; ?></td>
                             <td><?php echo $employe["first_name"]; ?></td>
+                            <td><?php echo $employe["last_name"]; ?></td>
                             <td><?php echo $employe["age"]; ?></td>
                         </tr>
                     <?php } ?>

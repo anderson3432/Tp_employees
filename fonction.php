@@ -91,7 +91,7 @@ function get_employes_by_departement($dept_no)
         return $employes;
     }
 
-function recherche_employes($department, $nom, $age_min, $age_max)
+function recherche_employes($department, $nom, $prenom, $age_min, $age_max)
 {
     $sql = "SELECT departments.dept_name, employees.first_name, employees.last_name,
                 TIMESTAMPDIFF(YEAR, employees.birth_date, CURDATE()) AS age
@@ -106,6 +106,9 @@ function recherche_employes($department, $nom, $age_min, $age_max)
     if (!empty($nom)) {
         $sql .= " AND employees.first_name LIKE '%$nom%'";
     }
+    if (!empty($prenom)) {
+        $sql .= " AND employees.last_name LIKE '%$prenom%'";
+    }    
     if ($age_min !== "" && $age_max !== "") {
         $sql .= " AND TIMESTAMPDIFF(YEAR, employees.birth_date, CURDATE()) BETWEEN $age_min AND $age_max";
     } elseif ($age_min !== "") {
