@@ -17,6 +17,7 @@ function dbconnect()
     }
     return $connect;
 }
+
 // function get_all_departement(){
 //     $sql = 'select * FROM departments';
 //     // echo $sql;
@@ -125,3 +126,51 @@ function recherche_employes($department, $nom, $prenom, $age_min, $age_max)
     mysqli_free_result($new_req);
     return $employes;
 }
+function get_info_dept($dept_no){
+    $sql = "SELECT d.dept_no, d.dept_name, de.from_date
+            FROM departments d
+            JOIN dept_emp de ON d.dept_no = de.dept_no
+            WHERE d.dept_no = '%s'
+            AND de.to_date = '9999-01-01'
+            LIMIT 1";
+    $sql = sprintf($sql, $dept_no);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $row = mysqli_fetch_assoc($new_req);
+    mysqli_free_result($new_req);
+    return $row;
+}
+function get_dept_employe($emp_no){
+    $sql = "SELECT d.dept_name, de.from_date
+            FROM departments d
+            JOIN dept_emp de ON d.dept_no = de.dept_no
+            WHERE de.emp_no = '%s'
+            AND de.to_date = '9999-01-01'";
+    $sql = sprintf($sql, $emp_no);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $row = mysqli_fetch_assoc($new_req);
+    mysqli_free_result($new_req);
+    return $row;
+}
+
+function get_dept_actuel($emp_no){
+    $sql = "SELECT dept_no FROM dept_emp WHERE emp_no = '%s' AND to_date = '9999-01-01'";
+    $sql = sprintf($sql, $emp_no);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $row = mysqli_fetch_assoc($new_req);
+    mysqli_free_result($new_req);
+    return $row["dept_no"];
+}
+
+function changer_departement($emp_no, $dept_no, $from_date){
+
+    $sql1 = "UPDATE dept_emp SET to_date = '%s' WHERE emp_no = '%s' AND to_date = '9999-01-01'";
+    $sql1 = sprintf($sql1, $from_date, $emp_no);
+    mysqli_query(dbconnect(), $sql1);
+
+    $sql2 = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date) VALUES ('%s', '%s', '%s', '9999-01-01')";
+    $sql2 = sprintf($sql2, $emp_no, $dept_no, $from_date);
+    mysqli_query(dbconnect(), $sql2);
+}
+
+
+?>

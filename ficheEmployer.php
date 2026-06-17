@@ -67,7 +67,59 @@ $historiqueSalaire = get_historique_salaire($num);
             <?php } ?>
         </tbody>
     </table>
+   <?php
+$dept_actuel = get_dept_actuel($num);
+$info_dept_actuel = get_info_dept($dept_actuel);
+?>
+
+<button class="btn btn-secondary mb-3" onclick="document.getElementById('form_dept').style.display='block'">
+    Changer de département
+</button>
+<?php
+$dept_employe = get_dept_employe($num);
+?>
+
+
+<div id="form_dept" style="display:none;" class="mt-3 p-3 border rounded">
+    <h5>Changer de departement</h5>
+
+        Departement actuel : <strong><?php echo $info_dept_actuel["dept_name"]; ?></strong>
+        <br> debut : <strong><?php echo $info_dept_actuel["from_date"]; ?></strong>
+ 
+
+    <form action="changer_dept.php" method="GET">
+        <input type="hidden" name="emp_no" value="<?php echo $num; ?>">
+        <input type="hidden" name="date_actuelle" value="<?php echo $info_dept_actuel["from_date"]; ?>">
+
+        <div class="mb-3">
+            <label>Nouveau departement</label>
+            <select name="dept_no" class="form-select">
+                <?php
+                $deps = get_all_departement();
+                foreach($deps as $dep){
+                    if($dep["dept_no"] != $dept_actuel){
+                ?>
+                <option value="<?php echo $dep["dept_no"]; ?>">
+                    <?php echo $dep["dept_name"]; ?>
+                </option>
+                <?php } } ?>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Date de début</label>
+            <input type="date" name="from_date" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirmer</button>
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('form_dept').style.display='none'">
+            Annuler
+        </button>
+    </form>
 </div>
+
+</div>
+
 
 </body>
 </html>
