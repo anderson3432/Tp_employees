@@ -117,9 +117,38 @@ $dept_employe = get_dept_employe($num);
         </button>
     </form>
 </div>
+<?php $manager_actuel = get_manager_actuel($num); ?>
 
+<button class="btn btn-warning mb-3" onclick="document.getElementById('form_manager').style.display='block'">
+    Devenir Manager
+</button>
+
+<div id="form_manager" style="display:none;" class="mt-3 p-3 border rounded">
+    <h5>Devenir Manager</h5>
+
+    <?php if(isset($_GET["erreur"]) && $_GET["erreur"] == "manager"){ ?>
+    <div class="alert alert-danger">
+        Erreur : la date doit etre posterieure au <?php echo $manager_actuel["from_date"]; ?>
+    </div>
+    <?php } ?>
+
+    Manager actuel : <strong><?php echo $manager_actuel["first_name"]; ?> <?php echo $manager_actuel["last_name"]; ?></strong>
+    <br>Depuis le : <strong><?php echo $manager_actuel["from_date"]; ?></strong>
+
+    <form action="DevenirManager.php" method="GET" class="mt-3">
+        <input type="hidden" name="emp_no" value="<?php echo $num; ?>">
+        <input type="hidden" name="date_manager_actuel" value="<?php echo $manager_actuel["from_date"]; ?>">
+
+        <div class="mb-3">
+            <label>Date de début</label>
+            <input type="date" name="from_date" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">Confirmer</button>
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('form_manager').style.display='none'">
+            Annuler
+        </button>
+    </form>
 </div>
-
-
 </body>
 </html>

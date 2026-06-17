@@ -34,7 +34,11 @@
     -[OK] fonction get_dept_actuel : pour retourner le departement actuel 
         d'un employee 
     -[OK] fonction change_departement : pour changer le departement d'un 
-        d'un employee       
+        d'un employee 
+    - [OK] fonction get_manager_actuel : pour retourner le manager actuel
+       du departement d'un employe
+    - [OK] fonction devenir_manager : pour qu'un employe devienne manager
+       de son departement (ferme l'ancien manager et insere le nouveau)          
 
 ## recherche.php       
     -[OK] include fonction.php
@@ -66,6 +70,13 @@
     -[OK] button "confirmer" dans le petit formulaire pour confirmer le changement 
         qui va vers changer_dept.php pour finaliser le changement   
     -[OK] affichage departement actuel et le debut en haut de la formulaire
+    - [OK] button "Devenir Manager" qui va montrer un petit formulaire
+       avec la date de debut comme nouveau manager
+    - [OK] affichage manager actuel et sa date de debut en haut du
+           formulaire devenir manager
+    - [OK] button "confirmer" dans le petit formulaire qui va vers
+           DevenirManager.php pour finaliser le changement
+    - [OK] message d'erreur si la date est anterieure au manager actuel
 
 ## changer_dept.php
     -[OK] include fonction 

@@ -207,4 +207,39 @@ GROUP BY titles.title";
     mysqli_free_result($new_req);
     return $employes;
 }
+function get_manager_actuel($emp_no){
+  
+    $sql = "SELECT e.first_name, e.last_name, dm.from_date
+            FROM dept_manager dm
+            JOIN employees e ON dm.emp_no = e.emp_no
+            JOIN dept_emp de ON dm.dept_no = de.dept_no
+            WHERE de.emp_no = '%s'
+            AND de.to_date = '9999-01-01'
+            AND dm.to_date = '9999-01-01'";
+    $sql = sprintf($sql, $emp_no);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $row = mysqli_fetch_assoc($new_req);
+    mysqli_free_result($new_req);
+    return $row;
+}
+
+function devenir_manager($emp_no, $from_date){
+    
+    $sql1 = "SELECT dept_no FROM dept_emp WHERE emp_no = '%s' AND to_date = '9999-01-01'";
+    $sql1 = sprintf($sql1, $emp_no);
+    $new_req = mysqli_query(dbconnect(), $sql1);
+    $row = mysqli_fetch_assoc($new_req);
+    $dept_no = $row["dept_no"];
+    mysqli_free_result($new_req);
+
+
+    $sql2 = "UPDATE dept_manager SET to_date = '%s' WHERE dept_no = '%s' AND to_date = '9999-01-01'";
+    $sql2 = sprintf($sql2, $from_date, $dept_no);
+    mysqli_query(dbconnect(), $sql2);
+
+   
+    $sql3 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES ('%s', '%s', '%s', '9999-01-01')";
+    $sql3 = sprintf($sql3, $emp_no, $dept_no, $from_date);
+    mysqli_query(dbconnect(), $sql3);
+}
 ?>
