@@ -32,12 +32,14 @@ function dbconnect()
 // }
 function get_all_departement()
 {
-    $sql = "SELECT d.dept_no, d.dept_name, e.first_name, e.last_name
+    $sql = "SELECT d.dept_no, d.dept_name, e.first_name, e.last_name , COUNT(de.emp_no) as nbr_employees
             FROM departments d
             JOIN dept_manager dm ON d.dept_no = dm.dept_no
             JOIN employees e ON dm.emp_no = e.emp_no
+            JOIN dept_emp de ON d.dept_no = de.dept_no
             WHERE dm.to_date = '9999-01-01'
-            ORDER BY d.dept_name";
+            GROUP BY d.dept_no, d.dept_name, e.first_name, e.last_name
+            ORDER BY d.dept_no";
     $new_req = mysqli_query(dbconnect(), $sql);
     $result = array();
     while ($news = mysqli_fetch_assoc($new_req)) {
@@ -67,30 +69,32 @@ function get_employes_by_departement($dept_no)
 }
 
 
-    function get_formulaire_employeer($num){
-        $sql = "SELECT * FROM employees e 
+function get_formulaire_employeer($num)
+{
+    $sql = "SELECT * FROM employees e 
                 WHERE e.emp_no = '%s'";
-        $sql = sprintf($sql, $num);
-        $new_req = mysqli_query(dbconnect(), $sql);
-        $employes = array();
-        while ($row = mysqli_fetch_assoc($new_req)) {
-            $employes[] = $row;
-        }
-        mysqli_free_result($new_req);
-        return $employes;
+    $sql = sprintf($sql, $num);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $employes = array();
+    while ($row = mysqli_fetch_assoc($new_req)) {
+        $employes[] = $row;
     }
-    function get_historique_salaire($num){
-        $sql = "SELECT * FROM salaries s 
+    mysqli_free_result($new_req);
+    return $employes;
+}
+function get_historique_salaire($num)
+{
+    $sql = "SELECT * FROM salaries s 
                 WHERE s.emp_no = '%s'";
-        $sql = sprintf($sql, $num);
-        $new_req = mysqli_query(dbconnect(), $sql);
-        $employes = array();
-        while ($row = mysqli_fetch_assoc($new_req)) {
-            $employes[] = $row;
-        }
-        mysqli_free_result($new_req);
-        return $employes;
+    $sql = sprintf($sql, $num);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $employes = array();
+    while ($row = mysqli_fetch_assoc($new_req)) {
+        $employes[] = $row;
     }
+    mysqli_free_result($new_req);
+    return $employes;
+}
 
 function recherche_employes($department, $nom, $prenom, $age_min, $age_max)
 {
@@ -109,7 +113,7 @@ function recherche_employes($department, $nom, $prenom, $age_min, $age_max)
     }
     if (!empty($prenom)) {
         $sql .= " AND employees.last_name LIKE '%$prenom%'";
-    }    
+    }
     if ($age_min !== "" && $age_max !== "") {
         $sql .= " AND TIMESTAMPDIFF(YEAR, employees.birth_date, CURDATE()) BETWEEN $age_min AND $age_max";
     } elseif ($age_min !== "") {
@@ -126,6 +130,7 @@ function recherche_employes($department, $nom, $prenom, $age_min, $age_max)
     mysqli_free_result($new_req);
     return $employes;
 }
+
 function get_info_dept($dept_no){
     $sql = "SELECT d.dept_no, d.dept_name, de.from_date
             FROM departments d
@@ -173,4 +178,33 @@ function changer_departement($emp_no, $dept_no, $from_date){
 }
 
 
+function get_employes_gender()
+{
+    $sql = "SELECT count(emp_no) as nbr_employees, gender FROM employees
+    Group by gender";
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $employes = array();
+    while ($row = mysqli_fetch_assoc($new_req)) {
+        $employes[] = $row;
+    }
+    mysqli_free_result($new_req);
+    return $employes;
+}
+function get_avg()
+{
+    $sql = "SELECT titles.title , AVG(salary) AS salaire_moyen
+FROM employees
+JOIN titles   ON employees.emp_no = titles.emp_no
+JOIN salaries ON employees.emp_no = salaries.emp_no
+WHERE titles.to_date   = '9999-01-01'
+  AND salaries.to_date = '9999-01-01'
+GROUP BY titles.title";
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $employes = array();
+    while ($row = mysqli_fetch_assoc($new_req)) {
+        $employes[] = $row;
+    }
+    mysqli_free_result($new_req);
+    return $employes;
+}
 ?>
