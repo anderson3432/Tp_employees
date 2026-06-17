@@ -34,7 +34,10 @@
     -[OK] fonction get_dept_actuel : pour retourner le departement actuel 
         d'un employee 
     -[OK] fonction change_departement : pour changer le departement d'un 
-        d'un employee       
+        d'un employee    
+    -[OK] fonction get_employees_gender : pour prend les nombres des employes par genre 
+    -[OK] fonction get_avg : prendre les salaires moyennes par employe
+    -[OK] fonction get_employe : pour prendre une l'employes le plus durée longue
 
 ## recherche.php       
     -[OK] include fonction.php
@@ -66,6 +69,7 @@
     -[OK] button "confirmer" dans le petit formulaire pour confirmer le changement 
         qui va vers changer_dept.php pour finaliser le changement   
     -[OK] affichage departement actuel et le debut en haut de la formulaire
+    -[OK] affichage des employes a plus long terme
 
 ## changer_dept.php
     -[OK] include fonction 
@@ -74,4 +78,9 @@
         pour afficher un message d'erreur si ce n'est pas logique
     -[OK] appel fonction changer_departement qui va finaliser le changement
     -[OK] un header pour retourner dans ficheEmployer.php
-
+## listeemployees.php   
+    -[OK] include fonction
+    -[OK] prend les 2 fonction creer 
+    -[OK] faire les 2 tableau qui affiche les resulats - un pour le nombre des employer par genre 
+                                                     - l'autre pour les moyennes des salaires par emploi
+    -[OK] faire des boucles a chacun pour afficher 
