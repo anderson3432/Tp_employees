@@ -36,7 +36,7 @@ $recherche = recherche_employes(
             <tbody>
                 <?php if (empty($recherche)) { ?>
                     <tr>
-                        <td colspan="3" class="text-center">Aucun résultat trouvé</td>
+                        <td colspan="4" class="text-center">Aucun résultat trouvé</td>
                     </tr>
                 <?php } else { ?>
                     <?php foreach ($recherche as $employe) { ?>

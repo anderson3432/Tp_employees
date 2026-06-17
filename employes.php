@@ -37,6 +37,7 @@ $employes = get_employes_by_departement($dept_no);
                     <a href="ficheEmployer.php?num=<?php echo $emp["emp_no"]; ?>">
                         <?php echo $emp["first_name"]; ?>
                     </a>
+                </td>
                 <td><?php echo $emp["title"]; ?></td>
                 <td><?php echo $emp["hire_date"]; ?></td>
             </tr>

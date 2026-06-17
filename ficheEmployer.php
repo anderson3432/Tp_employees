@@ -18,8 +18,8 @@ $historiqueSalaire = get_historique_salaire($num);
 <body class="bg-light">
 
 <div class="container mt-5">
-    <a href="index.php" class="btn btn-secondary mb-3">← Retour</a>
-    <h2 class="mb-4">Fiche de l'employer <?php echo $num; ?></h2>
+    <a href="javascript:history.back()" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left"></i> Retour</a>
+    <h2 class="mb-4">Fiche de l'employé n° <?php echo $num; ?></h2>
     <table class="table table-bordered table-striped table-hover">
         <thead class="table-dark">
             <tr>
@@ -28,7 +28,7 @@ $historiqueSalaire = get_historique_salaire($num);
                 <th>Prenom</th>
                 <th>Nom</th>
                 <th>Genre</th>
-                <th>hire_date</th>
+                <th>Date d'embauche</th>
             </tr>
         </thead>
         <tbody>
@@ -51,8 +51,8 @@ $historiqueSalaire = get_historique_salaire($num);
             <tr>
                 <!-- <th>Numéro</th> -->
                 <th>Salaire</th>
-                <th>From_date</th>
-                <th>to_date</th>
+                <th>Date début</th>
+                <th>Date fin</th>
             </tr>
         </thead>
         <tbody>

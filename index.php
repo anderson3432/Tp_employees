@@ -41,6 +41,7 @@ $news = get_all_departement();
                 <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Rechercher</button>
             </div>
         </form>
+        <a href="listeemployees.php" class="btn btn-secondary mt-3"><i class="bi bi-people"></i> Liste des employés</a>
     </div>
     <div class="container mt-5">
         <h1 class="mb-4">Liste des Départements</h1>
@@ -50,6 +51,7 @@ $news = get_all_departement();
                     <th>N° Dépt</th>
                     <th>Département</th>
                     <th>Manager</th>
+                    <th>Nombre d'employés</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +64,7 @@ $news = get_all_departement();
                             </a>
                         </td>
                         <td><?php echo $donnees["first_name"]; ?> <?php echo $donnees["last_name"]; ?></td>
+                        <td><?php echo $donnees["nbr_employees"]; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
