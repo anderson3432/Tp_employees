@@ -207,6 +207,7 @@ GROUP BY titles.title";
     mysqli_free_result($new_req);
     return $employes;
 }
+
 function get_manager_actuel($emp_no){
   
     $sql = "SELECT e.first_name, e.last_name, dm.from_date
@@ -241,5 +242,24 @@ function devenir_manager($emp_no, $from_date){
     $sql3 = "INSERT INTO dept_manager (emp_no, dept_no, from_date, to_date) VALUES ('%s', '%s', '%s', '9999-01-01')";
     $sql3 = sprintf($sql3, $emp_no, $dept_no, $from_date);
     mysqli_query(dbconnect(), $sql3);
+}
+function get_emploi($num)
+{
+    $sql = "SELECT title,
+                   from_date,
+                   to_date,
+                   DATEDIFF(
+                       IF(to_date = '9999-01-01', CURDATE(), to_date),
+                       from_date
+                   ) AS duree_jours
+            FROM titles
+            WHERE emp_no = '%s'
+            ORDER BY duree_jours DESC
+            LIMIT 1";
+    $sql = sprintf($sql, $num);
+    $new_req = mysqli_query(dbconnect(), $sql);
+    $result = mysqli_fetch_assoc($new_req);
+    mysqli_free_result($new_req);
+    return $result;
 }
 ?>

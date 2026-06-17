@@ -40,6 +40,12 @@
     - [OK] fonction devenir_manager : pour qu'un employe devienne manager
        de son departement (ferme l'ancien manager et insere le nouveau)          
 
+        d'un employee    
+    -[OK] fonction get_employees_gender : pour prend les nombres des employes par genre 
+    -[OK] fonction get_avg : prendre les salaires moyennes par employe
+    -[OK] fonction get_employe : pour prendre une l'employes le plus durée longue
+
+
 ## recherche.php       
     -[OK] include fonction.php
     -[OK] get tout les valeurs dans la formulaire de recherche dans index.php
@@ -77,6 +83,7 @@
     - [OK] button "confirmer" dans le petit formulaire qui va vers
            DevenirManager.php pour finaliser le changement
     - [OK] message d'erreur si la date est anterieure au manager actuel
+    -[OK] affichage des employes a plus long terme
 
 ## changer_dept.php
     -[OK] include fonction 
@@ -85,4 +92,9 @@
         pour afficher un message d'erreur si ce n'est pas logique
     -[OK] appel fonction changer_departement qui va finaliser le changement
     -[OK] un header pour retourner dans ficheEmployer.php
-
+## listeemployees.php   
+    -[OK] include fonction
+    -[OK] prend les 2 fonction creer 
+    -[OK] faire les 2 tableau qui affiche les resulats - un pour le nombre des employer par genre 
+                                                     - l'autre pour les moyennes des salaires par emploi
+    -[OK] faire des boucles a chacun pour afficher 
